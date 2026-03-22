@@ -2,7 +2,7 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>⚔️ ADVENTURER ASSOCIATION</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
@@ -10,32 +10,18 @@
 
         :root {
             --glow: 0 0 25px;
-            --base-font: 1rem;
         }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin:0; padding:0; box-sizing:border-box; }
         body {
             margin: 0;
-            overflow-x: hidden;
+            overflow: hidden;
             background: #0a0a1f;
             color: #e0d4ff;
             font-family: 'Press Start 2P', cursive;
-            min-height: 100dvh;
+            height: 100vh;
             position: relative;
-            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
         }
-
-        canvas#particles {
-            position: fixed;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
-        }
+        canvas#particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
 
         .page {
             position: absolute;
@@ -45,7 +31,7 @@
             align-items: center;
             justify-content: center;
             z-index: 2;
-            padding: 4vw;
+            padding: 20px;
             background: rgba(10,10,31,0.95);
         }
         .page.active { display: flex; }
@@ -56,38 +42,32 @@
         }
         .guild-title {
             font-family: 'UnifrakturCook', cursive;
-            font-size: clamp(2.8rem, 8vw, 4.5rem);
+            font-size: 4.5rem;
             color: #ffcc00;
             text-shadow: var(--glow) #ffcc00;
-            margin-bottom: 2vh;
-            text-align: center;
+            margin-bottom: 10px;
             animation: titleGlow 3s infinite alternate;
         }
         .subtitle {
-            font-size: clamp(1rem, 3.5vw, 1.4rem);
+            font-size: 1.4rem;
             color: #aaffff;
-            margin-bottom: 8vh;
+            margin-bottom: 50px;
             text-shadow: 0 0 15px #aaffff;
-            text-align: center;
         }
         .enter-btn {
-            font-size: clamp(1.2rem, 5vw, 1.8rem);
-            padding: 18px 50px;
+            font-size: 1.8rem;
+            padding: 20px 60px;
             background: #330033;
             border: 4px solid #ffcc00;
             color: #ffcc00;
             box-shadow: var(--glow) #ffcc00;
             cursor: pointer;
             transition: all 0.3s;
-            touch-action: manipulation;
-        }
-        .enter-btn:active {
-            transform: scale(0.95);
         }
         .enter-btn:hover {
             background: #ffcc00;
             color: #330033;
-            transform: scale(1.1);
+            transform: scale(1.15) rotate(2deg);
         }
 
         /* FORM */
@@ -96,16 +76,17 @@
         }
         .form-container {
             background: rgba(20,10,50,0.85);
-            padding: clamp(20px, 6vw, 40px);
+            padding: 40px;
             border: 6px solid #ffcc00;
             border-radius: 20px;
             box-shadow: 0 0 40px #ffcc00;
-            width: min(90vw, 520px);
+            max-width: 520px;
+            width: 100%;
         }
         label {
             display: block;
             margin: 18px 0 8px;
-            font-size: clamp(0.9rem, 3vw, 1.1rem);
+            font-size: 1.1rem;
             color: #ffdd88;
         }
         input, select {
@@ -115,44 +96,41 @@
             border: 3px solid #7755ff;
             color: white;
             font-family: inherit;
-            font-size: clamp(1rem, 3.5vw, 1.1rem);
+            font-size: 1.1rem;
             border-radius: 8px;
         }
         .reveal-btn {
             margin-top: 30px;
             width: 100%;
-            padding: 16px;
-            font-size: clamp(1.3rem, 5vw, 1.6rem);
+            padding: 18px;
+            font-size: 1.6rem;
             background: #ff3300;
             color: white;
             border: none;
             border-radius: 12px;
             cursor: pointer;
             box-shadow: var(--glow) #ff3300;
-            touch-action: manipulation;
         }
-        .reveal-btn:active { transform: scale(0.97); }
 
         /* LOADING */
         #loading {
             background: #0a001f;
         }
         .magic-circle {
-            width: clamp(140px, 40vw, 180px);
-            aspect-ratio: 1;
+            width: 180px;
+            height: 180px;
             border: 12px solid transparent;
             border-top: 12px solid #ffcc00;
             border-right: 12px solid #aa00ff;
             border-radius: 50%;
             animation: spin 1.2s linear infinite;
             box-shadow: 0 0 60px #ffcc00;
-            margin-bottom: 5vh;
+            margin-bottom: 30px;
         }
         .loading-text {
-            font-size: clamp(1.5rem, 6vw, 2rem);
+            font-size: 2rem;
             color: #ffcc00;
             animation: pulseText 1.5s infinite;
-            text-align: center;
         }
 
         /* RESULT */
@@ -160,11 +138,11 @@
             background: linear-gradient(135deg, #1a0033, #000033);
         }
         .adventurer-card {
-            width: min(90vw, 440px);
+            width: 440px;
             background: linear-gradient(145deg, #1f0033, #0f001f);
             border: 12px solid var(--rank-color);
             border-radius: 20px;
-            padding: clamp(20px, 5vw, 30px);
+            padding: 30px;
             box-shadow: 0 0 60px var(--rank-color),
                         inset 0 0 40px rgba(255,255,255,0.1);
             position: relative;
@@ -173,41 +151,39 @@
         }
         .card-header {
             text-align: center;
-            font-size: clamp(1.4rem, 4.5vw, 1.8rem);
+            font-size: 1.8rem;
             color: #ffcc00;
-            margin-bottom: 4vh;
+            margin-bottom: 20px;
             text-shadow: 0 0 15px #ffcc00;
         }
         .card-content {
-            line-height: 1.7;
-            font-size: clamp(0.95rem, 3.2vw, 1.15rem);
+            line-height: 1.8;
+            font-size: 1.15rem;
         }
         .highlight {
             color: #ffdd88;
             font-weight: bold;
         }
         .power-bar {
-            height: 16px;
+            height: 18px;
             background: #331133;
             border: 3px solid var(--rank-color);
-            margin: 12px 0;
-            border-radius: 8px;
-            overflow: hidden;
+            margin: 15px 0;
+            position: relative;
         }
         .power-fill {
             height: 100%;
             background: linear-gradient(90deg, #ffcc00, #ff00cc);
             width: var(--power);
-            transition: width 1s ease-out;
         }
         .rank-badge {
             position: absolute;
-            top: -12px;
-            right: 5vw;
+            top: -15px;
+            right: 30px;
             background: var(--rank-color);
             color: black;
-            padding: 6px 20px;
-            font-size: clamp(1.1rem, 4vw, 1.4rem);
+            padding: 8px 25px;
+            font-size: 1.4rem;
             border-radius: 30px;
             box-shadow: 0 0 20px var(--rank-color);
             transform: rotate(8deg);
@@ -216,38 +192,28 @@
             animation: rainbow 3s linear infinite;
         }
         .quote {
-            margin: 6vh 0 4vh;
+            margin-top: 30px;
             font-style: italic;
             color: #aaffaa;
             text-align: center;
-            font-size: clamp(0.9rem, 3vw, 1.1rem);
+            font-size: 1.1rem;
             padding: 15px;
             border-top: 2px dashed #7755ff;
-            max-width: 90vw;
         }
         .result-btn {
-            margin: 15px 8px;
-            padding: 12px 35px;
-            font-size: clamp(1.1rem, 4vw, 1.3rem);
+            margin: 20px 10px;
+            padding: 14px 40px;
+            font-size: 1.3rem;
             background: #330033;
             color: #ffcc00;
             border: 4px solid #ffcc00;
             cursor: pointer;
-            border-radius: 10px;
-            touch-action: manipulation;
-        }
-        .result-btn:active { transform: scale(0.96); }
-
-        @media (max-width: 600px) {
-            .page { padding: 3vw 4vw; }
-            .form-container { padding: 25px 20px; }
-            .adventurer-card { padding: 20px; }
         }
 
         @keyframes titleGlow { from { text-shadow: 0 0 15px #ffcc00; } to { text-shadow: 0 0 45px #ffcc00; } }
         @keyframes spin { to { transform: rotate(360deg); } }
         @keyframes pulseText { 0%,100% { opacity: 0.6; } 50% { opacity: 1; } }
-        @keyframes cardReveal { 0% { opacity: 0; transform: scale(0.7) rotate(-8deg); } 100% { opacity: 1; transform: scale(1) rotate(0deg); } }
+        @keyframes cardReveal { 0% { opacity: 0; transform: scale(0.6) rotate(-12deg); } 100% { opacity: 1; transform: scale(1) rotate(0deg); } }
         @keyframes rainbow {
             0% { border-color: #ff0000; } 14% { border-color: #ff8800; } 28% { border-color: #ffff00; }
             42% { border-color: #00ff00; } 57% { border-color: #00ffff; } 71% { border-color: #0088ff; }
@@ -256,3 +222,309 @@
     </style>
 </head>
 <body>
+
+<canvas id="particles"></canvas>
+
+<!-- HOME PAGE -->
+<div id="home" class="page active">
+    <div style="text-align:center; z-index:3;">
+        <h1 class="guild-title">ADVENTURER<br>ASSOCIATION</h1>
+        <p class="subtitle">"Your fate is written in the stars..."</p>
+        <button onclick="showForm()" class="enter-btn">⚔️ ENTER GUILD</button>
+    </div>
+</div>
+
+<!-- FORM PAGE -->
+<div id="form" class="page">
+    <div class="form-container">
+        <h2 style="text-align:center; color:#ffcc00; margin-bottom:25px; font-size:1.8rem;">REGISTRATION SCROLL</h2>
+        
+        <label>Adventurer Name</label>
+        <input type="text" id="name" placeholder="Pankaj" required>
+
+        <label>Clan Name</label>
+        <input type="text" id="clan" placeholder="Shadow Clan">
+
+        <label>Date of Birth</label>
+        <input type="date" id="dob" required>
+
+        <label>Registration Number</label>
+        <input type="number" id="reg" placeholder="1023" required>
+
+        <!-- Element Preference अब optional है, क्योंकि auto calculate होगा -->
+        <label>Preferred Element (optional)</label>
+        <select id="element">
+            <option value="">Let destiny decide</option>
+            <option value="Fire 🔥">Fire 🔥</option>
+            <option value="Water 💧">Water 💧</option>
+            <option value="Shadow 🌑">Shadow 🌑</option>
+            <option value="Light ✨">Light ✨</option>
+            <option value="Wind 🌪️">Wind 🌪️</option>
+            <option value="Thunder ⚡">Thunder ⚡</option>
+        </select>
+
+        <button onclick="startProcessing()" class="reveal-btn">🔮 REVEAL MY POWER</button>
+    </div>
+</div>
+
+<!-- LOADING & RESULT sections same as before -->
+
+<!-- LOADING PAGE -->
+<div id="loading" class="page">
+    <div class="magic-circle"></div>
+    <div class="loading-text">CALCULATING DESTINY...</div>
+    <p style="margin-top:30px; font-size:1rem; color:#aa88ff;">The ancient scrolls are turning...</p>
+</div>
+
+<!-- RESULT PAGE -->
+<div id="result" class="page">
+    <div id="adventurer-card" class="adventurer-card" style="margin-bottom:30px;">
+        <div class="rank-badge" id="rank-badge">SSS+</div>
+        
+        <div class="card-header">━━━━━━━━━━━━━━━━━━━<br>
+            ADVENTURER CARD<br>
+            ━━━━━━━━━━━━━━━━━━━
+        </div>
+
+        <div class="card-content">
+            <div><span class="highlight">Name:</span> <span id="r-name">Pankaj</span></div>
+            <div><span class="highlight">Clan:</span> <span id="r-clan">Shadow Clan</span></div>
+            <div><span class="highlight">Reg No:</span> <span id="r-reg">1023</span></div>
+            <div style="margin:20px 0;"><span class="highlight">Rank:</span> <span id="r-rank">SSS+</span></div>
+            <div><span class="highlight">Power Type:</span> <span id="r-element">Shadow 🌑</span></div>
+            
+            <div class="power-bar">
+                <div class="power-fill" id="power-fill" style="--power:87%;"></div>
+            </div>
+            <div style="text-align:center; font-size:1rem;">Power Level: <span id="r-power">87%</span></div>
+
+            <div style="margin-top:25px; text-align:center;">
+                <span class="highlight">Title:</span><br>
+                <span id="r-title" style="font-size:1.5rem; color:#ffdd88;">Night Dominator</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="quote" id="quote">"Your power rivals the ancient kings..."</div>
+
+    <div>
+        <button onclick="downloadCard()" class="result-btn">⬇️ DOWNLOAD CARD (PNG)</button>
+        <button onclick="reRoll()" class="result-btn">🔄 RE-ROLL DESTINY</button>
+    </div>
+</div>
+
+<script>
+// Particles (same as before)
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+let particles = [];
+
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+class Star {
+    constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2.5 + 0.8;
+        this.speed = Math.random() * 0.015 + 0.005;
+        this.opacity = Math.random() * 0.8 + 0.3;
+    }
+    update() {
+        this.opacity = Math.sin(Date.now() * this.speed) * 0.5 + 0.6;
+    }
+    draw() {
+        ctx.fillStyle = `rgba(255, 240, 200, ${this.opacity})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
+function initParticles() {
+    particles = [];
+    for (let i = 0; i < 120; i++) {
+        particles.push(new Star());
+    }
+}
+function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(star => {
+        star.update();
+        star.draw();
+    });
+    requestAnimationFrame(animateParticles);
+}
+initParticles();
+animateParticles();
+
+// Page Switch
+function switchPage(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(pageId).classList.add('active');
+}
+
+function showForm() {
+    switchPage('form');
+}
+
+// New Independent Element Calculation
+const elements = [
+    "Fire 🔥", "Water 💧", "Shadow 🌑", "Light ✨", "Wind 🌪️", "Thunder ⚡"
+];
+
+function calculateElement(name, clan, dob, reg) {
+    if (!name) return elements[2]; // default shadow
+
+    // Step 1: Name first letter → base index
+    let firstChar = name.trim().toUpperCase().charCodeAt(0) - 65; // A=0, B=1...
+    if (isNaN(firstChar)) firstChar = 0;
+    let base = firstChar % 6;
+
+    // Step 2: DOB day variation
+    let day = new Date(dob).getDate() || 1;
+    let shift = day % 12;
+
+    // Step 3: Clan length twist
+    let clanLen = (clan || "").length % 7;
+
+    // Step 4: Reg last digit modifier
+    let lastDigit = parseInt(reg.toString().slice(-1)) || 0;
+
+    // Final mix (different weights)
+    let finalIndex = (base + shift * 2 + clanLen * 3 + lastDigit * 5) % 12;
+
+    // Map to 6 elements with variation
+    // 0-1 → Fire, 2-3 → Water, 4-5 → Shadow, 6-7 → Light, 8-9 → Wind, 10-11 → Thunder
+    let elementIndex = Math.floor(finalIndex / 2);
+
+    // Rare chance for "Primal" or "Void" feel (just rename some)
+    if (finalIndex === 11 && Math.random() < 0.15) {
+        return "Void 🌌"; // secret rare variation
+    }
+
+    return elements[elementIndex];
+}
+
+let currentData = {};
+
+function calculatePower() {
+    const name = document.getElementById('name').value.trim() || "Unknown Hero";
+    const clan = document.getElementById('clan').value.trim() || "No Clan";
+    const dob = document.getElementById('dob').value;
+    const regStr = document.getElementById('reg').value || "0";
+
+    // DOB sum for power
+    const dobSum = dob.replace(/\D/g, '').split('').reduce((a, b) => a + parseInt(b), 0);
+
+    // Reg digits sum
+    const regSum = regStr.split('').reduce((a, b) => a + parseInt(b), 0);
+
+    // Power Score (0-100)
+    let score = (name.length * 3 + dobSum * 2 + regSum * 4) % 101;
+    if (score === 0) score = 100;
+
+    // Rank & Title (same as before)
+    let rankInfo;
+    if (score <= 10) rankInfo = {rank: "F", color: "#888888", title: "Beginner"};
+    else if (score <= 20) rankInfo = {rank: "D", color: "#4287f5", title: "Rookie Hunter"};
+    else if (score <= 30) rankInfo = {rank: "C", color: "#4ade80", title: "Hunter"};
+    else if (score <= 40) rankInfo = {rank: "B", color: "#a78bfa", title: "Elite Warrior"};
+    else if (score <= 50) rankInfo = {rank: "A", color: "#22c55e", title: "Legendary Warrior"};
+    else if (score <= 60) rankInfo = {rank: "S", color: "#c084fc", title: "Guild Master"};
+    else if (score <= 70) rankInfo = {rank: "S+", color: "#eab308", title: "Master of Shadows"};
+    else if (score <= 80) rankInfo = {rank: "SSS", color: "#f59e0b", title: "Shadow King"};
+    else if (score <= 85) rankInfo = {rank: "SSS+", color: "#fbbf24", title: "Ancient Overlord"};
+    else if (score <= 90) rankInfo = {rank: "X", color: "#ef4444", title: "World Breaker"};
+    else if (score <= 94) rankInfo = {rank: "X+", color: "#b91c1c", title: "Doom Bringer"};
+    else if (score <= 97) rankInfo = {rank: "Z", color: "#dc2626", title: "Eternal Destroyer"};
+    else rankInfo = {rank: "MAX", color: "#ff00ff", title: "GOD LEVEL"};
+
+    // Independent Element
+    const powerType = calculateElement(name, clan, dob, regStr);
+
+    currentData = {
+        name: name,
+        clan: clan,
+        reg: regStr,
+        rank: rankInfo.rank,
+        color: rankInfo.color,
+        power: score,
+        element: powerType,
+        title: rankInfo.title
+    };
+
+    return currentData;
+}
+
+function startProcessing() {
+    if (!document.getElementById('name').value || !document.getElementById('dob').value || !document.getElementById('reg').value) {
+        alert("Name, DOB और Registration Number जरूरी हैं!");
+        return;
+    }
+    switchPage('loading');
+
+    setTimeout(() => {
+        const data = calculatePower();
+        showResult(data);
+    }, 2800);
+}
+
+function showResult(data) {
+    switchPage('result');
+
+    document.getElementById('r-name').textContent = data.name;
+    document.getElementById('r-clan').textContent = data.clan;
+    document.getElementById('r-reg').textContent = data.reg;
+    document.getElementById('r-rank').textContent = data.rank;
+    document.getElementById('r-element').textContent = data.element;
+    document.getElementById('r-title').textContent = data.title;
+    document.getElementById('r-power').textContent = data.power + "%";
+    document.getElementById('power-fill').style.width = data.power + "%";
+
+    const card = document.getElementById('adventurer-card');
+    card.style.setProperty('--rank-color', data.color);
+
+    if (data.rank === "MAX") {
+        card.classList.add('max-rainbow');
+    } else {
+        card.classList.remove('max-rainbow');
+    }
+
+    const quotes = [
+        "Your power rivals the ancient kings...",
+        "The stars have chosen you as their champion.",
+        "Even dragons bow before your destiny.",
+        "You are the blade that will cut through darkness.",
+        "The guild has never seen a soul like yours.",
+        "Fate itself trembles at your name."
+    ];
+    document.getElementById('quote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
+}
+
+function downloadCard() {
+    const card = document.getElementById('adventurer-card');
+    html2canvas(card, { scale: 2, backgroundColor: "#1f0033" }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = `${currentData.name.replace(/ /g,'_')}_Adventurer_Card.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+    });
+}
+
+function reRoll() {
+    switchPage('form');
+}
+
+document.addEventListener('keydown', e => {
+    if (e.key === "Enter" && document.getElementById('form').classList.contains('active')) {
+        startProcessing();
+    }
+});
+</script>
+</body>
+</html>
